@@ -5,7 +5,7 @@
 ## How to use
 ```sh
 $ sudo whatever
-[sudo] password for user:    # Send <ctrl>+c since you don't have the password). # This creates an invalid sudo tokens.
+[sudo] password for user:    # Press <ctrl>+c since you don't have the password. # This creates an invalid sudo tokens.
 $ ./exploit.sh # This activates our sudo token.
 .... wait 3 seconds
 $ sudo -i # no password required :)
@@ -39,6 +39,10 @@ version, flags, uid, sid, starttime_sec, starttime_nsec
 
 A very good way to leave a secret backdoor on servers that rarely reboots.
 No done yet but checkout './write_sudo_token $$' in ./extra_tools
+
+### Why
+
+I was looking for a way to steal dead process sudo token, but it doesn't look possible because they are associated by ((process start time and process session id) or (tty start time and tty session id)), and everything can be impressionnated except the start times which are relative to system boot time.
 
 ----
 By [@chaignc][] [#HexpressoTeam][hexpresso].
