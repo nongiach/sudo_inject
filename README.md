@@ -3,6 +3,7 @@
 #### Inject process that have valid sudo token and activate our own sudo token.
 
 ## How to use
+PS: need requirements!!
 ```sh
 $ sudo whatever
 [sudo] password for user:    # Press <ctrl>+c since you don't have the password. # This creates an invalid sudo tokens.
