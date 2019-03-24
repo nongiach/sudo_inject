@@ -21,7 +21,7 @@ The default password timeout is 15 minutes. So if you use sudo twice in 15 minut
 
 This is far from a generic privesc without requirements but it works, for instance if you have a RCE and don't have the user password but the user uses sudo then you can easily get root by stealing his token.
 
-## More
+## Going further
 
 ### Forensic, DFIR ?
 
