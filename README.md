@@ -25,7 +25,7 @@ This is far from a generic privesc without requirements but it works, for instan
 
 ### Forensic, DFIR ?
 
-To be improved but for each sudo attemps there is an entry added to /var/run/sudo/ts/[username]
+Printing to be improved but each process sudo attempt has one entry in /var/run/sudo/ts/[username]
 ```sh
 ./read_sudo_token_forensic  < /var/run/sudo/ts/user
 version, flags, uid, sid, starttime_sec, starttime_nsec
@@ -37,8 +37,8 @@ version, flags, uid, sid, starttime_sec, starttime_nsec
 
 ### Golden sudo tickets
 
-A very good way to leave a secret backdoor on servers that rarely reboots.
-No done yet but checkout './write_sudo_token $$' in ./extra_tools
+A very good way to create a secret root backdoor on servers that rarely reboots.
+Not done yet but checkout './write_sudo_token $$' in ./extra_tools
 
 ### Why
 
