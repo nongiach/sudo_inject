@@ -2,6 +2,14 @@
 
 #### Inject process that have valid sudo token and activate our own sudo token.
 
+## Description
+
+We all noticed that sometimes sudo doesn't ask us for a password because he remembers us.
+As far as I know this research is not yet documented, but let me know if it is.
+Indeed sudo creates a file for each linux user in /var/run/sudo/ts/[username].
+This file contains both successful and failed authentications.
+
+
 ## How to use against vulnerable system
 PS: read requirements!!
 ```sh
