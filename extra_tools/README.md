@@ -1,16 +1,23 @@
 parse_process_stat: parse /proc/[pid]/stat
+
 Usage: ./parse_process_stat [pid]
+
 Everything is parsed but only starttime is printed.
+
 Example:
-`sh
+```sh
 ./parse_process_stat 4242
 /proc/4242/stat.starttime => 193691
-`
+```
 
 read_sudo_token: parse /var/run/sudo/ts/[username]
+
 Usage: ./read_sudo_token < /var/run/sudo/ts/[username]
+
 parse all sudo token
+
 Example:
+
 `sh
 # ./read_sudo_token < /var/run/sudo/ts/test
 ===================version = 2
@@ -36,13 +43,17 @@ ppid 4242
 `
 
 spawn_process_pid: spawn a shell that has a given pid
+
 Usage: ./spawn_process_pid [pid]
+
 Example:
+
 `sh
 bash$ ./spawn_process_pid 12345
 sh$ echo $$
 12345
 `
+
 
 https://github.com/ThomasHabets/injcode
 
