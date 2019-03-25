@@ -40,6 +40,11 @@ version, flags, uid, sid, starttime_sec, starttime_nsec
 2, 0, 1001, 24578, 6974, 10000000
 ```
 
+### Arbitrary write to root
+
+If you have an abitrary write you can create a sudo token for you current process to gain root code execution.
+checkout './write_sudo_token $$ > /var/run/sudo/ts/[username]' in extra_tools,
+
 ### Golden sudo tickets
 
 A very good way to create a secret root backdoor on servers that rarely reboots.
