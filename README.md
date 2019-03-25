@@ -30,7 +30,7 @@ uid=0(root) gid=0(root) groups=0(root)
 
 ## Requirements
 * Ptrace fully enabled (cat /proc/sys/kernel/yama/ptrace_scope == 0).
-* A currently living process that has a valid sudo token with the same uid.
+* Current user must have living process that has a valid sudo token with the same uid.
 
 ```
 The default password timeout is 15 minutes. So if you use sudo twice in 15 minutes (900 seconds), you will not be asked to type the user’s password again.
@@ -38,7 +38,7 @@ The default password timeout is 15 minutes. So if you use sudo twice in 15 minut
 
 ## What's happening behind the scene
 
-Sudo stores
+
 
 *exploit.sh* is barely tree lines of shell, 
 
