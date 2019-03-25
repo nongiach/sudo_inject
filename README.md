@@ -2,30 +2,32 @@
 
 #### Inject process that have valid sudo token and activate our own sudo token.
 
-## Description
+## Introduction
 
 We all noticed that sometimes sudo doesn't ask us for a password because he remembers us. How does he remember us and how does he identify us, can we falsify our identity and become *root*?
 As far as I know this research is not yet documented, but let me know if it is.
 Indeed sudo creates a file for each linux user in /var/run/sudo/ts/[username].
-This file contains both successful and failed authentications.
+These files contain both successful and failed authentications and process session ids, then sudo uses these files to remember the authenticated processes.
 
 This repository provides you:
 * A way to gain root privilege by abusing sudo tokens (Don't be too happy there are requirements).
 * A tool to forge sudo tokens for a given process. (write_sudo_token in ./extra_tools/).
 * A tool to parse sudo tokens for forensic. (read_sudo_token_forensic and read_sudo_token in ./extra_tools). 
-* A technique to transform a root arbitrary file write into root code execution.  
+* A technique to transform any root arbitrary file write into stable root code execution.  
 
-## How to use against vulnerable system
+## How to exploit a vulnerable system
 PS: read requirements!!
 ```sh
 $ sudo whatever
 [sudo] password for user:    # Press <ctrl>+c since you don't have the password. # This creates an invalid sudo tokens.
 $ ./exploit.sh # This activates our sudo token.
-.... wait 3 seconds
+.... wait 1 seconds
 $ sudo -i # no password required :)
 # id
 uid=0(root) gid=0(root) groups=0(root)
 ```
+
+##
 
 ## Requirements
 * Ptrace fully enabled (cat /proc/sys/kernel/yama/ptrace_scope == 0).
