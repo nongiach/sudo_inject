@@ -4,11 +4,16 @@
 
 ## Description
 
-We all noticed that sometimes sudo doesn't ask us for a password because he remembers us.
+We all noticed that sometimes sudo doesn't ask us for a password because he remembers us. How does he remember us and how does he identify us, can we falsify our identity and become *root*?
 As far as I know this research is not yet documented, but let me know if it is.
 Indeed sudo creates a file for each linux user in /var/run/sudo/ts/[username].
 This file contains both successful and failed authentications.
 
+This repository provides you:
+* A way to gain root privilege by abusing sudo tokens (Don't be too happy there are requirements).
+* A tool to forge sudo tokens for a given process. (write_sudo_token in ./extra_tools/).
+* A tool to parse sudo tokens for forensic. (read_sudo_token_forensic and read_sudo_token in ./extra_tools). 
+* A technique to transform a root arbitrary file write into root code execution.  
 
 ## How to use against vulnerable system
 PS: read requirements!!
