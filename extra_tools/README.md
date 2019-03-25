@@ -48,11 +48,11 @@ Usage: ./spawn_process_pid [pid]
 
 Example:
 
-`sh
+```sh
 bash$ ./spawn_process_pid 12345
 sh$ echo $$
 12345
-`
+```
 
 
 https://github.com/ThomasHabets/injcode
