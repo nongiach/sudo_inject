@@ -18,7 +18,7 @@ parse all sudo token
 
 Example:
 
-`sh
+```sh
 # ./read_sudo_token < /var/run/sudo/ts/test
 ===================version = 2
 size 56
@@ -40,7 +40,7 @@ pid start_time 986 sec 440000000 nsec
 ts 996 sec 210870326 nsec
 ttydev 4242
 ppid 4242
-`
+```
 
 spawn_process_pid: spawn a shell that has a given pid
 
