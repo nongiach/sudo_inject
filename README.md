@@ -38,7 +38,7 @@ The default password timeout is 15 minutes. So if you use sudo twice in 15 minut
 
 ## What's happenning behind the scene?
 
-exploit.sh inject all shell own by the current user and use their sudo token to validate our own sudo token. It's barely 3 lines of shell, have a look.
+exploit.sh injects all shell processes owned by the current user and use their sudo token to validate our own sudo token. It's barely 3 lines of shell, have a look.
 
 ## Usecase
 
