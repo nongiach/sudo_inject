@@ -48,17 +48,18 @@ This is far from a generic privesc without requirements but it works, for instan
 
 ```sh
 # echo 0 > /proc/sys/kernel/yama/ptrace_scope
-# # Don't worry this is persistent accross reboot
+# # Don't worry this is not persistent accross reboot
 ```
 Start two terminals:
 * one to type sudo and enter the right password (example: sudo ls).
-* one to start the exploit as described above.
+* another to start the exploit as described above.
 
 ## Going further
 
 ### Forensic, DFIR ?
 
-Printing to be improved but each process sudo attempt has one entry in /var/run/sudo/ts/[username]
+Printing to be improved but each process sudo attempt has one entry in /var/run/sudo/ts/[username].
+Also this files are stored in tmpfs(ram), one could write a volatility plugin to parse this information to gather sudo attempt.
 ```sh
 ./read_sudo_token_forensic  < /var/run/sudo/ts/user
 version, flags, uid, sid, starttime_sec, starttime_nsec
