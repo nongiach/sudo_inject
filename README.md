@@ -38,7 +38,7 @@ The default password timeout is 15 minutes. So if you use sudo twice in 15 minut
 
 ## What's happenning behind the scene?
 
-Sudo uses 
+exploit.sh inject all shell own by the current user and use their sudo token to validate our own sudo token. It's barely 3 lines of shell, have a look.
 
 ## Usecase
 
@@ -81,7 +81,7 @@ Not done yet but checkout './write_sudo_token $$' in ./extra_tools
 
 ### Why
 
-I was looking for a way to steal dead process sudo token, but it doesn't look possible because they are associated by ((process start time and process session id) or (tty start time and tty session id)), and everything can be impressionnated except the start times which are relative to system boot time.
+I was looking for a way to steal dead process sudo token, but it doesn't look possible because they are associated by ((process start time and process session id) or (tty start time and tty session id)). Session id (process pid) can be impressionnated but the process start time is not fakable.
 
 ## Links
 
