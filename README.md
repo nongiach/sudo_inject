@@ -59,7 +59,7 @@ Start two terminals:
 ### Forensic, DFIR ?
 
 Printing to be improved but each process sudo attempt has one entry in /var/run/sudo/ts/[username].
-Also this files are stored in tmpfs(ram), one could write a volatility plugin to parse this information to gather sudo attempt.
+Also these files are stored in tmpfs(ram), one could write a volatility plugin to parse this information to gather sudo attempt.
 ```sh
 ./read_sudo_token_forensic  < /var/run/sudo/ts/user
 version, flags, uid, sid, starttime_sec, starttime_nsec
