@@ -1,18 +1,18 @@
-# [Linux] Privilege Escalation by injecting process posseding sudo tokens.
+# [Linux] Privilege Escalation by injecting process posseding sudo tokens
 
-#### Inject process that have valid sudo token and activate our own sudo token.
+#### Inject process that have valid sudo token and activate our own sudo token
 
 ## Introduction
 
-We all noticed that sometimes sudo doesn't ask us for a password because he remembers us. How does he remember us and how does he identify us, can we falsify our identity and become *root*?
+We all noticed that sometimes sudo doesn't ask us for a password because he remembers us. How does he remember us and how does he identifies us? Can we falsify our identity and become *root*?
 As far as I know this research is not yet documented, but let me know if it is.
 Indeed sudo creates a file for each linux user in /var/run/sudo/ts/[username].
-These files contain both successful and failed authentications, then sudo uses these files to remember the authenticated processes. -- [@chaignc][]
+These files contain both successful and failed authentications, then sudo uses these files to remember all the authenticated processes. -- [@chaignc][]
 
 This repository provides you:
 * A way to gain root privilege by abusing sudo tokens (Don't be too happy there are requirements).
-* A tool to forge sudo tokens for a given process. (write_sudo_token in ./extra_tools/).
-* A tool to parse sudo tokens for forensic. (read_sudo_token_forensic and read_sudo_token in ./extra_tools).
+* A tool to forge sudo tokens for a given process (write_sudo_token in ./extra_tools/).
+* A tool to parse sudo tokens for forensic (read_sudo_token_forensic and read_sudo_token in ./extra_tools).
 * A technique to transform any root arbitrary file write into stable root code execution.  
 
 
@@ -29,7 +29,7 @@ uid=0(root) gid=0(root) groups=0(root)
 ```
 
 ## Requirements
-* Ptrace fully enabled (cat /proc/sys/kernel/yama/ptrace_scope == 0).
+* Ptrace fully enabled (/proc/sys/kernel/yama/ptrace_scope == 0).
 * Current user must have living process that has a valid sudo token with the same uid.
 
 ```
@@ -42,7 +42,7 @@ exploit.sh injects all shell processes owned by the current user and use their s
 
 ## Usecase
 
-This is far from a generic privesc without requirements but it works, for instance if you have a RCE and don't have the user password but the user uses sudo then you can easily get root by stealing his token.
+This is far from a generic privesc without requirements but it works, for instance if you have a RCE and don't have the user password but the victim uses sudo then you can easily get root by stealing his token.
 
 ## How to simulate in lab?
 
@@ -71,17 +71,17 @@ version, flags, uid, sid, starttime_sec, starttime_nsec
 
 ### Arbitrary write to root
 
-If you have an abitrary write you can create a sudo token for you current process to gain root code execution.
-checkout './write_sudo_token $$ > /var/run/sudo/ts/[username]' in extra_tools,
+If you have an abitrary write you can create a sudo token for your current process to gain root code execution.
+checkout './write_sudo_token $$ > /var/run/sudo/ts/[username]' in extra_tools.
 
-### Golden sudo tickets
+### Silver sudo tickets
 
 A very good way to create a secret root backdoor on servers that rarely reboots.
 Not done yet but checkout './write_sudo_token $$' in ./extra_tools
 
 ### Why
 
-I was looking for a way to steal dead process sudo token, but it doesn't look possible because they are associated by ((process start time and process session id) or (tty start time and tty session id)). Session id (process pid) can be impressionnated but the process start time is not fakable.
+I was looking for a way to steal dead process sudo token, but it doesn't look possible because they are associated by ((process start time *and* process session id) *or* (tty start time *and* tty session id)). Session id (process pid) can be impersonated but the process start time is not fakable.
 
 ## Links
 
