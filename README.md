@@ -12,7 +12,7 @@ These files contain both successful and failed authentications, then sudo uses t
 This repository provides you:
 * A way to gain root privilege by abusing sudo tokens (Don't be too happy there are requirements).
 * A tool to forge sudo tokens for a given process. (write_sudo_token in ./extra_tools/).
-* A tool to parse sudo tokens for forensic. (read_sudo_token_forensic and read_sudo_token in ./extra_tools). 
+* A tool to parse sudo tokens for forensic. (read_sudo_token_forensic and read_sudo_token in ./extra_tools).
 * A technique to transform any root arbitrary file write into stable root code execution.  
 
 
@@ -36,11 +36,9 @@ uid=0(root) gid=0(root) groups=0(root)
 The default password timeout is 15 minutes. So if you use sudo twice in 15 minutes (900 seconds), you will not be asked to type the user’s password again.
 ```
 
-## What's happening behind the scene
+## What's happenning behind the scene?
 
-
-
-*exploit.sh* is barely tree lines of shell, 
+Sudo uses 
 
 ## Usecase
 
@@ -83,6 +81,16 @@ Not done yet but checkout './write_sudo_token $$' in ./extra_tools
 ### Why
 
 I was looking for a way to steal dead process sudo token, but it doesn't look possible because they are associated by ((process start time and process session id) or (tty start time and tty session id)), and everything can be impressionnated except the start times which are relative to system boot time.
+
+## Links
+
+[Parsing /proc/[pid]/stat](https://www.redhat.com/archives/axp-list/2001-January/msg00355.html)
+
+[Sudo token struct](https://www.sudo.ws/man/1.8.25/sudoers_timestamp.man.html)
+
+[Linux based inter process code injection without ptrace](https://blog.gdssecurity.com/labs/2017/9/5/linux-based-inter-process-code-injection-without-ptrace2.html)
+
+[Moving a process to another terminal](https://blog.habets.se/2009/03/Moving-a-process-to-another-terminal.html)
 
 ----
 By [@chaignc][] [#HexpressoTeam][hexpresso].
