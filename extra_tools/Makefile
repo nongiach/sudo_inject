@@ -1,11 +1,11 @@
 # relink :)
 all:
-	gcc spawn_process_pid.c -o spawn_process_pid
-	gcc read_sudo_token.c -o read_sudo_token
-	gcc read_sudo_token_forensic.c -o read_sudo_token_forensic
-	gcc write_sudo_token.c -o write_sudo_token
-	gcc parse_process_stat.c -o parse_process_stat
-	gcc activate_sudo_token.c -o activate_sudo_token -Wno-overflow
+	gcc spawn_process_pid.c -o spawn_process_pid -static
+	gcc read_sudo_token.c -o read_sudo_token -static
+	gcc read_sudo_token_forensic.c -o read_sudo_token_forensic -static
+	gcc write_sudo_token.c -o write_sudo_token -static
+	gcc parse_process_stat.c -o parse_process_stat -static
+	gcc activate_sudo_token.c -o activate_sudo_token -Wno-overflow -static
 	cp activate_sudo_token ../
 
 clean:
