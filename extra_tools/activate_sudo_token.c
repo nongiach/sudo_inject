@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include <glob.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 typedef struct statstruct_proc {
   int           pid;                      /** The process id. **/
@@ -147,20 +149,48 @@ int get_proc_info(pid_t pid, procinfo * pinfo)
 #define TS_DISABLED             0x01    /* entry disabled */
 #define TS_ANYUID               0x02    /* ignore uid, only valid in key */
 
-struct timestamp_entry {
-    unsigned short version;     /* version number */
-    unsigned short size;        /* entry size */
-    unsigned short type;        /* TS_GLOBAL, TS_TTY, TS_PPID */
-    unsigned short flags;       /* TS_DISABLED, TS_ANYUID */
-    uid_t auth_uid;             /* uid to authenticate as */
-    pid_t sid;                  /* session ID associated with tty/ppid */
-    struct timespec start_time; /* session/ppid start time */
-    struct timespec ts;         /* time stamp (CLOCK_MONOTONIC) */
+/* struct timestamp_entry { */
+/*     unsigned short version;     #<{(| version number |)}># */
+/*     unsigned short size;        #<{(| entry size |)}># */
+/*     unsigned short type;        #<{(| TS_GLOBAL, TS_TTY, TS_PPID |)}># */
+/*     unsigned short flags;       #<{(| TS_DISABLED, TS_ANYUID |)}># */
+/*     uid_t auth_uid;             #<{(| uid to authenticate as |)}># */
+/*     pid_t sid;                  #<{(| session ID associated with tty/ppid |)}># */
+/*     struct timespec start_time; #<{(| session/ppid start time |)}># */
+/*     struct timespec ts;         #<{(| time stamp (CLOCK_MONOTONIC) |)}># */
+/*     union { */
+/*         dev_t ttydev;           #<{(| tty device number |)}># */
+/*         pid_t ppid;             #<{(| parent pid |)}># */
+/*     } u; */
+/* } sudo; */
+
+struct header_s {
+    unsigned short version;	/* version number */
+    unsigned short size;	/* entry size */
+    unsigned short type;	/* TS_GLOBAL, TS_TTY, TS_PPID */
+    unsigned short flags;	/* TS_DISABLED, TS_ANYUID */
+} header;
+
+struct timestamp_entry_v1 {
+    uid_t auth_uid;		/* uid to authenticate as */
+    pid_t sid;			/* session ID associated with tty/ppid */
+    struct timespec ts;		/* time stamp (CLOCK_MONOTONIC) */
     union {
-        dev_t ttydev;           /* tty device number */
-        pid_t ppid;             /* parent pid */
+	dev_t ttydev;		/* tty device number */
+	pid_t ppid;		/* parent pid */
     } u;
-} sudo;
+};
+
+struct timestamp_entry {
+    uid_t auth_uid;		/* uid to authenticate as */
+    pid_t sid;			/* session ID associated with tty/ppid */
+    struct timespec start_time;	/* session/ppid start time */
+    struct timespec ts;		/* time stamp (CLOCK_MONOTONIC) */
+    union {
+	dev_t ttydev;		/* tty device number */
+	pid_t ppid;		/* parent pid */
+    } u;
+};
 
 int main(int ac, char **av) {
 
@@ -168,21 +198,39 @@ int main(int ac, char **av) {
 	get_proc_info(getpid(), &pinfo_self);
 	glob_t globbuf;
 
-	glob("/var/run/sudo/ts/*", 0, NULL, &globbuf);
+	if (ac <= 1)
+		glob("/var/run/sudo/ts/*", 0, NULL, &globbuf);
+	else
+		glob(av[1], 0, NULL, &globbuf);
 
 	for (int i = 0; i < globbuf.gl_pathc; i++)
 	{
 		int fd = open(globbuf.gl_pathv[i], O_RDWR);
 		if (fd >= 0) {
-			while (read(fd, &sudo, sizeof(sudo)) == sizeof(sudo)) {
-				sudo.flags = 0;
-				sudo.ts.tv_sec = pinfo_self.starttime / 100;
-				sudo.ts.tv_nsec = 0;
-				if (lseek(fd, -sizeof(sudo), SEEK_CUR) == -1) {
+			/* while (read(fd, &sudo, sizeof(sudo)) == sizeof(sudo)) { */
+			while (read(fd, &header, sizeof(header)) == sizeof(header)) {
+				header.flags = 0;
+				if (lseek(fd, -sizeof(header), SEEK_CUR) == -1) {
 					printf("ERROR: lseek %m\n");
 					return 1;
 				}
-				write(fd, &sudo, sizeof(sudo));
+				write(fd, &header, sizeof(header));
+				if (header.version == 1) {
+					struct timestamp_entry_v1 entry;
+					read(fd, &entry, sizeof(entry));
+					entry.ts.tv_sec = pinfo_self.starttime / 100;
+					entry.ts.tv_nsec = 0;
+					lseek(fd, -sizeof(entry), SEEK_CUR);
+					write(fd, &entry, sizeof(entry));
+				}
+				else {
+					struct timestamp_entry entry;
+					read(fd, &entry, sizeof(entry));
+					entry.ts.tv_sec = pinfo_self.starttime / 100;
+					entry.ts.tv_nsec = 0;
+					lseek(fd, -sizeof(entry), SEEK_CUR);
+					write(fd, &entry, sizeof(entry));
+				}
 			}
 		}
 	}

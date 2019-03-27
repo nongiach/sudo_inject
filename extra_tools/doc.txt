@@ -1,1 +1,7 @@
 Defaults        timestamp_timeout=300
+timestamp_open( <= function
+in forensic if we echo pass | sudo -S
+can we retrieve the password ? in bash memory, and in sudo memory
+struct timestamp_entry
+struct ts_cookie
+tsdump binary in official sudo repository
