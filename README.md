@@ -89,8 +89,8 @@ I was looking for a way to steal dead process sudo token, but it doesn't look po
 * Reduce ptrace power, example edit /etc/sysctl.conf with
 ```
 kernel.yama.ptrace_scope = 1
-# https://linux-audit.com/protect-ptrace-processes-kernel-yama-ptrace_scope/
 ```
+[yama ptrace scope](https://linux-audit.com/protect-ptrace-processes-kernel-yama-ptrace_scope/)
 
 ## Links
 
