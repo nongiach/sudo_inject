@@ -5,3 +5,11 @@ can we retrieve the password ? in bash memory, and in sudo memory
 struct timestamp_entry
 struct ts_cookie
 tsdump binary in official sudo repository
+
+https://unix.stackexchange.com/questions/203007/pam-timestamp-how-to-inspecting-the-var-run-sudo-user-file
+strace pam_timestamp_check to debug timestamp parsing
+
+readlink("/proc/self/fd/0", "/dev/pts/6", 4095) = 10
+./configure --disable-shared
+make
+make -C plugins/sudoers/ tsdump

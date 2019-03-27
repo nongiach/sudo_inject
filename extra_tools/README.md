@@ -19,27 +19,24 @@ parse all sudo token
 Example:
 
 ```sh
-# ./read_sudo_token < /var/run/sudo/ts/test
-===================version = 2
-size 56
-type 4
-flags 0
-auth_uid 0
-sid 0
-pid start_time 0 sec 0 nsec
-ts 0 sec 0 nsec
-ttydev 0
-ppid 0
-===================version = 2
-size 56
-type TS_PPID
-flags 0
-auth_uid 1001
-sid 4242
-pid start_time 986 sec 440000000 nsec
-ts 996 sec 210870326 nsec
-ttydev 4242
-ppid 4242
+# ./tsdump -f /var/run/sudo/ts/test 
+position: 0
+version: 2
+size: 56
+type: TS_LOCKEXCL
+flags: 
+auth uid: 0
+session ID: 0
+
+position: 56
+version: 2
+size: 56
+type: TS_TTY
+flags: TS_DISABLED
+auth uid: 1001
+session ID: 1594
+start time: Wed Mar 27 23:20:11 2019
+terminal: /dev/pts/1
 ```
 
 spawn_process_pid: spawn a shell that has a given pid
@@ -53,6 +50,9 @@ bash$ ./spawn_process_pid 12345
 sh$ echo $$
 12345
 ```
+# tsdump to read sudo token or (sudo timestamp)
+
+./configure CFLAGS="-static"
 
 
 https://github.com/ThomasHabets/injcode
