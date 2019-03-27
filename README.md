@@ -83,6 +83,15 @@ Not done yet but checkout './write_sudo_token $$' in ./extra_tools
 
 I was looking for a way to steal dead process sudo token, but it doesn't look possible because they are associated by ((process start time *and* process session id) *or* (tty start time *and* tty session id)). Session id (process pid) can be impersonated but the process start time is not fakable.
 
+### How to remediate?
+
+* Update your sudo version
+* Reduce ptrace power, example edit /etc/sysctl.conf with
+```
+kernel.yama.ptrace_scope = 1
+```
+[yama ptrace scope](https://linux-audit.com/protect-ptrace-processes-kernel-yama-ptrace_scope/)
+
 ## Links
 
 [Parsing /proc/[pid]/stat](https://www.redhat.com/archives/axp-list/2001-January/msg00355.html)
