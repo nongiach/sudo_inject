@@ -86,10 +86,10 @@ I was looking for a way to steal dead process sudo token, but it doesn't look po
 ### How to remediate?
 
 * Update your sudo version
-* Reduce ptrace power
-Example edit /etc/sysctl.conf with
+* Reduce ptrace power, example edit /etc/sysctl.conf with
 ```
 kernel.yama.ptrace_scope = 1
+# https://linux-audit.com/protect-ptrace-processes-kernel-yama-ptrace_scope/
 ```
 
 ## Links
