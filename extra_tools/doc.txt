@@ -12,4 +12,9 @@ strace pam_timestamp_check to debug timestamp parsing
 readlink("/proc/self/fd/0", "/dev/pts/6", 4095) = 10
 ./configure --disable-shared
 make
+LDFLAGS=-static ./configure --disable-shared
 make -C plugins/sudoers/ tsdump
+CFLAGS="-pg" LDFLAGS="-static -pg" ./configure --disable-shared
+gcc -o tsdump tsdump.o sudoers_debug.o locale.o -Wl,-z -Wl,relro -fPIE -pie -fstack-protector-strong  ../../lib/util/.libs/libsudo_util.a -lpthread -static
+
+exec and fork class => http://www.cems.uwe.ac.uk/~irjohnso/coursenotes/lrc/system/pc/pc4.htm

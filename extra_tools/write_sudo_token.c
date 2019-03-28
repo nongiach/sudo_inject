@@ -166,6 +166,10 @@ int main(int ac, char **av) {
 		return 1;
 	}
 	pid_t pid = atoi(av[1]);
+    /* rc = pstat_getproc(&pstat, sizeof(pstat), 0, pid); */
+    /* if (rc != -1 || errno == EOVERFLOW) { */
+	/* starttime->tv_sec = pstat.pst_start; */
+	/* starttime->tv_nsec = 0; */
 
 	procinfo pinfo;
 	get_proc_info(pid, &pinfo);

@@ -1,5 +1,8 @@
 # relink :)
 all:
+	# gcc sudo_exec.c -o sudo_exec -static -lutil
+	gcc sudo_exec.c -o sudo_exec -pg
+	gcc fork_pty.c -o fork_pty -static -lutil
 	gcc spawn_process_pid.c -o spawn_process_pid -static
 	gcc spawn_process_pid2.c -o spawn_process_pid2 -static
 	# gcc read_sudo_token.c -o read_sudo_token -static
@@ -11,4 +14,4 @@ all:
 	cp activate_sudo_token ../
 
 clean:
-	rm -rf spawn_process_pid read_sudo_token write_sudo_token parse_process_stat activate_sudo_token read_sudo_token_forensic
+	rm -rf spawn_process_pid read_sudo_token write_sudo_token parse_process_stat activate_sudo_token read_sudo_token_forensic fork_pty sudo_exec

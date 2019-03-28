@@ -102,6 +102,8 @@ kernel.yama.ptrace_scope = 1
 
 [Moving a process to another terminal](https://blog.habets.se/2009/03/Moving-a-process-to-another-terminal.html)
 
+https://www.linusakesson.net/programming/tty/
+
 ----
 By [@chaignc][] [#HexpressoTeam][hexpresso].
 
