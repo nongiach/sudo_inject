@@ -13,7 +13,8 @@ This repository provides you:
 * A way to gain root privilege by abusing sudo tokens (Don't be too happy there are requirements).
 * A tool to forge sudo tokens for a given process (write_sudo_token in ./extra_tools/).
 * A tool to parse sudo tokens for forensic (read_sudo_token_forensic and read_sudo_token in ./extra_tools).
-* A technique to transform any root arbitrary file write into stable root code execution.  
+* A technique to transform any root arbitrary file write into stable root code execution.
+* A  clue to make a exploit that does not require ptrace or that the targeted process is alive. 
 
 
 ## How to exploit a vulnerable system
