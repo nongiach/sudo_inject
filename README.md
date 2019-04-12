@@ -36,6 +36,10 @@ uid=0(root) gid=0(root) groups=0(root)
 ```
 The default password timeout is 15 minutes. So if you use sudo twice in 15 minutes (900 seconds), you will not be asked to type the user’s password again.
 ```
+## Warning
+
+* Educational purpose only, do not use on a system that you do not own.
+* It's not well tested, so don't consider it as stable.
 
 ## What's happenning behind the scene?
 
