@@ -1,4 +1,4 @@
-# [Linux] Privilege Escalation by injecting process posseding sudo tokens
+# [Linux] Privilege Escalation by injecting process possessing sudo tokens
 
 #### Inject process that have valid sudo token and activate our own sudo token
 
